@@ -4,6 +4,11 @@ public class EmptyCell extends Cell{
         return "    ";
     }
 
+    @Override
+    public void quest(Board board) {
+
+    }
+
     EmptyCell() {
 
     }

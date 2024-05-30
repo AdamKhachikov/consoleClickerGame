@@ -3,4 +3,9 @@ public class Person extends Cell{
     public String toString() {
         return " Pe ";
     }
+
+    @Override
+    public void quest(Board board) {
+
+    }
 }

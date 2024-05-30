@@ -3,4 +3,6 @@ public abstract class Cell {
     public String toString() {
         return "";
     }
+
+    public abstract void quest(Board board);
 }

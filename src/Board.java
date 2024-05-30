@@ -2,8 +2,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Board {
+    int lives = 3;
+    int doorX;
+    int doorY;
+    int personX;
+    int personY;
     Cell[][] board;
     Board(int width){
+
         board = new Cell[width][width];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < width; j++) {
@@ -11,18 +17,22 @@ public class Board {
             }
         }
         Random random = new Random();
-        int rand = random.nextInt(0, 4);
+        int rand = random.nextInt(0, board.length);
         int rand2 = random.nextInt(0, 4);
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 13; i++){
             board[rand2][rand] = new BigMonster();
-            rand = random.nextInt(0, 4);
-            rand2 = random.nextInt(0, 4);
+            rand = random.nextInt(0, board.length);
+            rand2 = random.nextInt(0, board.length);
             board[rand2][rand] = new SmallMonster();
-            rand = random.nextInt(0, 4);
-            rand2 = random.nextInt(0, 4);
+            rand = random.nextInt(0, board.length);
+            rand2 = random.nextInt(0, board.length);
         }
+        personX = rand;
+        personY = 0;
         board[0][rand] = new Door();
-        board[4][rand2] = new Person();
+        personX = board.length - 1;
+        personY = rand2;
+        board[board.length - 1][rand2] = new Person();
 
     }
     public String generateFence() {
@@ -35,15 +45,46 @@ public class Board {
     @Override
     public String toString() {
         StringBuilder boardStr = new StringBuilder();
-        for (int i = 0; i < board.length; i++) {
+        for (Cell[] cells : board) {
             boardStr.append(this.generateFence());
             boardStr.append("\n|");
-            for (int j = 0; j < board[i].length; j++) {
-                boardStr.append(STR."\{board[i][j].toString()}|");
+            for (Cell cell : cells) {
+                boardStr.append(cell.toString()).append("|");
             }
             boardStr.append("\n");
         }
         boardStr.append(this.generateFence());
         return boardStr.toString();
+    }
+    public void step(char c){
+        board[personX][personY] = new EmptyCell();
+        switch (c) {
+            case 'l':
+                if (personY == 0){
+                    break;
+                }
+                personY -= 1;
+                break;
+            case 'r':
+                if(personY == board.length - 1) {
+                    break;
+                }
+                personY += 1;
+                break;
+            case 'u':
+                if (personX == 0) {
+                    break;
+                }
+                personX -= 1;
+                break;
+            case 'd':
+                if (personX == board.length - 1) {
+                    break;
+                }
+                personX += 1;
+                break;
+        }
+        board[personX][personY].quest(this);
+        board[personX][personY] = new Person();
     }
 }
