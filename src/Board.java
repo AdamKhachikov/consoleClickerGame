@@ -59,25 +59,25 @@ public class Board {
     public void step(char c){
         board[personX][personY] = new EmptyCell();
         switch (c) {
-            case 'l':
+            case 'a':
                 if (personY == 0){
                     break;
                 }
                 personY -= 1;
                 break;
-            case 'r':
+            case 'd':
                 if(personY == board.length - 1) {
                     break;
                 }
                 personY += 1;
                 break;
-            case 'u':
+            case 'w':
                 if (personX == 0) {
                     break;
                 }
                 personX -= 1;
                 break;
-            case 'd':
+            case 's':
                 if (personX == board.length - 1) {
                     break;
                 }
