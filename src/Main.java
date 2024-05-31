@@ -11,8 +11,6 @@ public class Main {
             board.step(direction);
         }
 
-//        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-//        board.step('l');
-//        System.out.println(board);
+
     }
 }
